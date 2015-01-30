@@ -11,6 +11,8 @@ NKU GPACalculator
 
 [Windows](https://raw.githubusercontent.com/Neon4o4/NKU-GPACalculator/master/NKU-GPACalculator-Win.rar) [Mac](https://raw.githubusercontent.com/Neon4o4/NKU-GPACalculator/master/NKU-GPACalculator-OSX.zip)
 
+最新版开发代码 [喵版](https://nodeload.github.com/NKUCodingCat/NKU-GPACalculator/legacy.zip/master)    [Neon Ver.](https://nodeload.github.com/Neon4o4/NKU-GPACalculator/legacy.zip/master)
+
 如果 Github 太慢，可以使用这个也很慢的备用地址：（如果你可以访问 IPv6 的话，推荐使用 IPv6）
 
 IPv4：[Windows](http://www.clatter.cn/proj/nkucdn/NKU-GPACalculator-Win.rar)  [Windows](http://vps1.nkucodingcat.com/test/cdn/NKU-GPACalculator-Win.rar) [Mac](http://www.clatter.cn/proj/nkucdn/NKU-GPACalculator-OSX.zip)  [Mac](http://vps1.nkucodingcat.com/test/cdn/NKU-GPACalculator-OSX.zip)
