@@ -36,6 +36,7 @@ elif __file__:
 else:
 	print "Find Path Error"
 isWindows = (platform.platform().upper()[:7]=="WINDOWS")
+isOSX = (platform.system().upper()=="Darwin")
 #---------------------------------------------------------
 def INIT():
 	global Login
@@ -126,9 +127,12 @@ class AppPanel(wx.Panel):
 		self.val = wx.StaticBitmap(self, 9, bitmap = self.image.ConvertToBitmap())
 		self.val.SetPosition(wx.Point(89, 80))
 
-		self.version = wx.StaticText(self, 0, "@version 0.0.2", pos = (255, 205))
-		
+		self.version = wx.StaticText(self, 0, "@version 0.0.3", pos = (255, 205))
+
 	def OutPut(self, event):
+		global LocPath
+		if not OSX:
+			LocPath = re.sub('[^/]+?/Contents/MacOS/', '', LocPath)
 		f = open(LocPath + "Your_Score.txt","w")
 		for i in sorted(ScoreList.keys()):
 			for j in ScoreList[i]:
@@ -137,29 +141,29 @@ class AppPanel(wx.Panel):
 		if isWindows:
 			#print unicode(LocPath.decode("GBK"))
 			#print u"成绩清单已被导出到\n"+LocPath + u"Your_Score.txt"+u"\n是否打开？"
-			dlg = wx.MessageBox( u"成绩清单已被导出到\n"+unicode(LocPath.decode("GBK")) + u"Your_Score.txt"+u"\n是否打开？",u'导出完成', wx.YES_NO |wx.ICON_INFORMATION | wx.STAY_ON_TOP) 
+			dlg = wx.MessageBox( u"成绩清单已被导出到\n"+unicode(LocPath.decode("GBK")) + u"Your_Score.txt"+u"\n是否打开？",u'导出完成', wx.YES_NO |wx.ICON_INFORMATION | wx.STAY_ON_TOP)
 			if dlg == wx.YES:
 				os.startfile(LocPath + "Your_Score.txt")
 			else:
 				pass
 		else:
-			dlg = wx.MessageBox( u"成绩清单已被导出到\n"+LocPath + u"Your_Score.txt",u'导出完成', wx.YES |wx.ICON_INFORMATION | wx.STAY_ON_TOP) 
+			dlg = wx.MessageBox( u"成绩清单已被导出到\n"+unicode(LocPath) + u"Your_Score.txt",u'导出完成', wx.ICON_INFORMATION | wx.STAY_ON_TOP)
 
 	def CalcPanel(self):
-		self.preset = wx.RadioBox(self, 20, label = "", pos = (15,135),
+		self.preset = wx.RadioBox(self, 20, label = "", pos = (15,110),
 			choices = Preset, majorDimension = 2)
 		self.Bind(wx.EVT_RADIOBOX, self.OnRadio, self.preset)
 
-		self.A = wx.CheckBox(self, 11, label = u"A类", pos = (185,145))
-		self.B = wx.CheckBox(self, 12, label = u"B类", pos = (185,170))
-		self.C = wx.CheckBox(self, 13, label = u"C类", pos = (185,195))
-		self.D = wx.CheckBox(self, 14, label = u"D类", pos = (235,145))
-		self.E = wx.CheckBox(self, 15, label = u"E类", pos = (235,170))
-		self.FC = wx.CheckBox(self, 16, label = "FC", pos = (285,145))
-		self.FD = wx.CheckBox(self, 17, label = "FD", pos = (285,170))
+		self.A = wx.CheckBox(self, 11, label = u"A类", pos = (185,120))
+		self.B = wx.CheckBox(self, 12, label = u"B类", pos = (185,145))
+		self.C = wx.CheckBox(self, 13, label = u"C类", pos = (185,170))
+		self.D = wx.CheckBox(self, 14, label = u"D类", pos = (235,120))
+		self.E = wx.CheckBox(self, 15, label = u"E类", pos = (235,145))
+		self.FC = wx.CheckBox(self, 16, label = "FC", pos = (285,120))
+		self.FD = wx.CheckBox(self, 17, label = "FD", pos = (285,145))
 		#=====================
-		self.confirm = wx.Button(self, 21, label = u"导出")
-		self.confirm.SetPosition(wx.Point(240, 190))
+		self.confirm = wx.Button(self, 15, label = u"导出")
+		self.confirm.SetPosition(wx.Point(240, 175))
 		self.Bind(wx.EVT_BUTTON, self.OutPut)
 		#=====================
 		self.CourseType = [self.A, self.B, self.C, self.D, self.E, self.FC, self.FD]
@@ -168,10 +172,10 @@ class AppPanel(wx.Panel):
 		for ctype in self.CourseType:
 			self.Bind(wx.EVT_CHECKBOX, self.OnRadio, ctype)
 
-		self.infoText = wx.StaticText(self, 18, label = '=, =', pos = (25,30))
+		self.infoText = wx.StaticText(self, 18, label = '=, =', pos = (25,15))
 		self.infoText.SetFont(wx.Font(17, wx.DECORATIVE, wx.NORMAL, wx.NORMAL))
 
-		self.GPAText = wx.StaticText(self, 19, label = '12.345678', pos = (130,80))
+		self.GPAText = wx.StaticText(self, 19, label = '12.345678', pos = (90,55))
 		self.GPAText.SetFont(wx.Font(20, wx.DECORATIVE, wx.NORMAL, wx.NORMAL))
 
 		self.OnRadio(wx.EVT_RADIOBOX)
